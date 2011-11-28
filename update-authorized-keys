@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cd $(dirname $0)
+
+git pull
+cat *.pub > $HOME/.ssh/authorized_keys
+chmod 600 $HOME/.ssh/authorized_keys
+
