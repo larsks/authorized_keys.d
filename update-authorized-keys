@@ -14,5 +14,7 @@ cat *.pub > $tmpfile
 if [ -s $tmpfile ]; then
 	mv $tmpfile $HOME/.ssh/authorized_keys
 fi
-chmod 600 $HOME/.ssh/authorized_keys
 
+# Make sure permissions are correct.
+chmod 600 $HOME/.ssh/authorized_keys
+chmod 700 $HOME/.ssh
