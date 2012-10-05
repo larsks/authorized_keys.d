@@ -3,6 +3,16 @@
 cd $(dirname $0)
 
 git pull
-cat *.pub > $HOME/.ssh/authorized_keys
+
+# Generate authorized_keys in a temporary file
+# first to avoid disrupting access due to 
+# quota or other disk space issues.
+trap "rm -f $tmpfile" 0
+tmpfile=$(mktemp $HOME/.ssh/keysXXXXXX)
+
+cat *.pub > $tmpfile
+if [ -s $tmpfile ]; then
+	mv $tmpfile $HOME/.ssh/authorized_keys
+fi
 chmod 600 $HOME/.ssh/authorized_keys
 
